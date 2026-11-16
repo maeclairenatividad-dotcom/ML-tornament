@@ -34,10 +34,12 @@ body {
 .brand-wrap { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .brand-mark {
   display: grid; place-items: center; width: 38px; height: 38px; border-radius: 10px; flex: none;
+  overflow: hidden;
   background: linear-gradient(135deg, #2e0bf5, #2563eb); color: #fff;
   font-size: 12px; font-weight: 800; letter-spacing: .06em;
   box-shadow: 0 4px 14px rgba(46, 11, 245, .38);
 }
+.brand-mark img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .brand-text { display: flex; flex-direction: column; min-width: 0; }
 .brand { font-weight: 800; letter-spacing: .02em; color: #fff; font-size: 17px; line-height: 1.2; }
 .brand-sub { font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #9ca3af; margin-top: 2px; }
