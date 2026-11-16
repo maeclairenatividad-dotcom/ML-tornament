@@ -31,6 +31,8 @@ app.use((req, res, next) => {
 });
 app.use(express.json({ limit: '100kb' }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
+app.get('/qr', (req, res) => res.sendFile(path.join(__dirname, 'public', 'qr.html')));
 
 const wrap = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ML Tournament Registration</title>
+  <link rel="canonical" href="https://ml-tornament.onrender.com/" />
   <link rel="icon" type="image/png" sizes="64x64" href="icon-64.png" />
   <link rel="apple-touch-icon" href="icon-180.png" />
   <meta name="theme-color" content="#1f2937" />
@@ -46,7 +47,16 @@
   <main>
     <!-- LOGIN / REGISTER -->
     <section id="viewAuth" class="auth-wrap">
-      <div class="card auth-card">
+      <div class="auth-stack">
+        <div class="auth-hero">
+          <img src="icon.png" alt="" />
+          <div class="hero-copy">
+            <span class="hero-kicker">PCC Esports</span>
+            <strong class="hero-title">Mobile Legends Tournament</strong>
+            <span class="hero-sub">Register your squad. Track the bracket.</span>
+          </div>
+        </div>
+        <div class="card auth-card">
         <div class="tabs" id="authTabs">
           <button data-form="loginForm" class="active">Login</button>
           <button data-form="registerForm">Register</button>
@@ -77,6 +87,7 @@
           <label>Password<input type="password" name="password" required /></label>
           <button class="btn dark" type="submit">Log in</button>
         </form>
+        </div>
       </div>
     </section>
 

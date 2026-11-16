@@ -8,6 +8,7 @@
   --dark: #1f2937;
   --ok: #15803d;
   --bad: #b91c1c;
+  --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='52' viewBox='0 0 52 52'%3E%3Cpath d='M26 3 49 26 26 49 3 26Z' fill='none' stroke='%23ffffff' stroke-opacity='.06' stroke-width='1'/%3E%3C/svg%3E");
 }
 * { box-sizing: border-box; }
 body {
@@ -15,11 +16,11 @@ body {
   /* Background picture: put your image in the public folder and name it bg.jpg (or change the name below).
      The dark layer keeps the page readable. If bg.jpg is missing, the plain gray color is used. */
   background-color: var(--bg);
-  background-image: linear-gradient(rgba(0, 0, 0, .45), rgba(0, 0, 0, .45)), url("bg.jpg");
-  background-size: cover;
-  background-position: center;
+  background-image: linear-gradient(rgba(0, 0, 0, .45), rgba(0, 0, 0, .45)), var(--pattern), url("bg.jpg");
+  background-size: cover, 52px 52px, cover;
+  background-position: center, 0 0, center;
   background-attachment: fixed;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat, repeat, no-repeat;
   min-height: 100vh;
 }
 [hidden] { display: none !important; }
@@ -62,7 +63,30 @@ main { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
 
 .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 20px; margin-bottom: 18px; }
 .auth-wrap { display: flex; justify-content: center; }
-.auth-card { width: 100%; max-width: 440px; }
+.auth-stack { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 14px; }
+.auth-card { width: 100%; max-width: 440px; border-top: 3px solid #f59e0b; }
+.auth-hero {
+  position: relative; overflow: hidden; display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px; border-radius: 12px; border: 1px solid rgba(99, 102, 241, .4);
+  background: linear-gradient(135deg, #141b26, #1f2937 60%, #2e0bf5 170%);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .3);
+}
+.auth-hero::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: var(--pattern); background-size: 40px 40px; opacity: .8;
+}
+.auth-hero img {
+  position: relative; width: 56px; height: 56px; border-radius: 12px; flex: none;
+  box-shadow: 0 6px 16px rgba(46, 11, 245, .45);
+}
+.hero-copy { position: relative; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.hero-kicker { font-size: 9px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: #fbbf24; }
+.hero-title { font-size: 15px; font-weight: 800; line-height: 1.2; letter-spacing: .01em; color: #fff; }
+.hero-sub { font-size: 12px; color: #c7d2fe; }
+
+.invite-row { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.invite-row img { width: 132px; height: 132px; flex: none; padding: 6px; background: #fff; border: 1px solid var(--line); border-radius: 10px; }
+.invite-row .muted { margin: 0 0 10px; }
 
 .tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--line); margin-bottom: 18px; flex-wrap: wrap; }
 .tabs button { background: none; border: 0; padding: 10px 14px; font-size: 14px; font-weight: 600; color: var(--muted); cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
@@ -145,6 +169,8 @@ tbody tr:hover td { background: #f9fafb; }
 
 @media (max-width: 640px) {
   .grid2, .member-row { grid-template-columns: 1fr; }
+  .auth-hero img { width: 48px; height: 48px; }
+  .hero-title { font-size: 14px; }
   .topbar { padding: 9px 14px; gap: 10px; }
   .brand { font-size: 15px; }
   .brand-sub { display: none; }

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Scan to Register — ML Tournament</title>
+  <style>
+    :root { --ink: #0f172a; --muted: #5b6475; --blue: #2e0bf5; --gold: #f5a524; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 28px 16px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--ink);
+      background-color: #eef1f7;
+      background-image:
+        linear-gradient(rgba(238, 241, 247, .92), rgba(238, 241, 247, .92)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Cpath d='M22 2 42 22 22 42 2 22Z' fill='none' stroke='%232e0bf5' stroke-opacity='.16' stroke-width='1'/%3E%3C/svg%3E");
+      background-size: auto, 44px 44px;
+    }
+    .poster {
+      width: min(720px, 100%); background: #fff; border: 1px solid #dbe1ec; border-radius: 18px;
+      overflow: hidden; box-shadow: 0 24px 60px rgba(15, 23, 42, .18);
+    }
+    .band {
+      display: flex; justify-content: center; padding: 12px 20px;
+      background: linear-gradient(135deg, #0d1320, #1f2937 55%, #2e0bf5 165%);
+      border-bottom: 3px solid var(--gold);
+    }
+    .band img { width: min(430px, 100%); display: block; border-radius: 8px; }
+    .content { padding: 26px 26px 22px; text-align: center; }
+    .kicker { margin: 0; color: #b45309; font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+    h1 { margin: 8px 0 20px; font-size: clamp(26px, 5vw, 38px); line-height: 1.08; letter-spacing: -.01em; }
+    h1 span { color: var(--blue); }
+    .qr-shell {
+      position: relative; width: min(320px, 78vw); margin: 0 auto; padding: 14px;
+      background: #fff; border: 2px solid var(--ink); border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(46, 11, 245, .16);
+    }
+    .qr-shell img { width: 100%; display: block; border-radius: 6px; }
+    .qr-shell::before, .qr-shell::after { content: ""; position: absolute; width: 30px; height: 30px; }
+    .qr-shell::before { top: -9px; left: -9px; border-top: 4px solid var(--gold); border-left: 4px solid var(--gold); border-radius: 6px 0 0 0; }
+    .qr-shell::after { right: -9px; bottom: -9px; border-right: 4px solid var(--gold); border-bottom: 4px solid var(--gold); border-radius: 0 0 6px 0; }
+    .hint { margin: 14px 0 20px; color: var(--muted); font-size: 13px; }
+    ol { max-width: 430px; margin: 0 auto 20px; padding: 0; list-style: none; display: grid; gap: 9px; text-align: left; }
+    li { position: relative; padding-left: 27px; font-size: 14px; color: #334155; }
+    li::before {
+      content: ""; position: absolute; left: 5px; top: 5px; width: 9px; height: 9px;
+      background: linear-gradient(135deg, var(--blue), #2563eb); transform: rotate(45deg);
+      box-shadow: 0 0 0 3px rgba(46, 11, 245, .12);
+    }
+    .url { margin: 0; font-size: 13px; font-weight: 800; letter-spacing: .04em; color: #1e293b; }
+    .actions { display: flex; gap: 10px; justify-content: center; padding: 0 26px 26px; }
+    .btn {
+      display: inline-block; padding: 10px 18px; border: 0; border-radius: 7px; cursor: pointer;
+      font: inherit; font-size: 14px; font-weight: 700; text-decoration: none;
+      background: linear-gradient(135deg, #2e0bf5, #2563eb); color: #fff;
+      box-shadow: 0 6px 18px rgba(37, 99, 235, .3);
+    }
+    .btn.ghost { background: #fff; color: var(--ink); border: 1px solid #cbd5e1; box-shadow: none; }
+    .btn:focus-visible { outline: 2px solid #93c5fd; outline-offset: 2px; }
+    @media print {
+      @page { size: A4 portrait; margin: 12mm; }
+      body { background: #fff; padding: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .poster { width: 100%; border: 0; border-radius: 0; box-shadow: none; }
+      .actions { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="poster">
+    <header class="band">
+      <img src="logo.png" alt="ML Tournament — Registration &amp; Bracket Control" />
+    </header>
+    <section class="content">
+      <p class="kicker">PCC Mobile Legends Tournament</p>
+      <h1>Scan to <span>register</span><br />your team</h1>
+      <div class="qr-shell">
+        <img src="qr-login.png" alt="QR code that opens the ML Tournament login page" />
+      </div>
+      <p class="hint">Point your phone camera at the code</p>
+      <ol>
+        <li>Scan the code and create your account.</li>
+        <li>Register your 5-player team and roster.</li>
+        <li>Wait for admin approval, then check the bracket.</li>
+      </ol>
+      <p class="url">ml-tornament.onrender.com</p>
+    </section>
+    <div class="actions">
+      <button class="btn" type="button" onclick="window.print()">Print poster</button>
+      <a class="btn ghost" href="/">Open the site</a>
+    </div>
+  </main>
+</body>
+</html>

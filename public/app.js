@@ -427,7 +427,18 @@ const loaders = {
       <form id="testForm" class="form inline">
         <label>Send to<input type="email" name="to" value="${esc(me.email)}" required /></label>
         <button class="btn dark" type="submit">Send test email</button>
-      </form>`);
+      </form>
+
+      <h3>Player invite QR</h3>
+      <div class="invite-row">
+        <img src="qr-login.png" alt="QR code that opens the tournament login page" />
+        <div>
+          <p class="muted">Print the poster and post it around school. Scanning the code opens the login page at
+            <strong>ml-tornament.onrender.com/login</strong>.</p>
+          <a class="btn small" style="display:inline-block" href="/qr" target="_blank" rel="noopener">Open printable poster</a>
+          <a class="btn small dark" style="display:inline-block; margin-left:8px" href="/qr-login.png" download="ml-tournament-qr.png">Download QR</a>
+        </div>
+      </div>`);
 
     $('#mailForm').onsubmit = async (e) => {
       e.preventDefault();
