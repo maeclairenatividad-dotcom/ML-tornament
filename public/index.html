@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ML Tournament Registration</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-wrap">
+      <span class="brand-mark">PCC</span>
+      <div class="brand-text">
+        <span class="brand">ML Tournament</span>
+        <span class="brand-sub">Registration &amp; Bracket Control</span>
+      </div>
+    </div>
+    <div id="userbox" class="userbox" hidden>
+      <span class="user-chip">
+        <span id="avatar" class="avatar"></span>
+        <span id="userLabel" class="user-email"></span>
+      </span>
+      <span id="rolePill" class="role-pill" hidden>Admin</span>
+      <button id="logoutBtn" class="btn small ghost">Log out</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- LOGIN / REGISTER -->
+    <section id="viewAuth" class="auth-wrap">
+      <div class="card auth-card">
+        <div class="tabs" id="authTabs">
+          <button data-form="loginForm" class="active">Login</button>
+          <button data-form="registerForm">Register</button>
+          <button data-form="adminForm">Admin</button>
+        </div>
+
+        <form id="loginForm" class="form">
+          <label>Email<input type="email" name="email" required autocomplete="email" /></label>
+          <label>Password<input type="password" name="password" required autocomplete="current-password" /></label>
+          <button class="btn" type="submit">Log in</button>
+        </form>
+
+        <form id="registerForm" class="form" hidden>
+          <label>Full Name<input name="fullName" required /></label>
+          <div class="grid2">
+            <label>School ID<input name="schoolId" required /></label>
+            <label>Program<input name="program" placeholder="e.g. BSIT" required /></label>
+          </div>
+          <label>Email (notifications are sent here)<input type="email" name="email" required /></label>
+          <label>IGN (in-game name)<input name="ign" required /></label>
+          <label>Password (min. 8 characters)<input type="password" name="password" minlength="8" required autocomplete="new-password" /></label>
+          <button class="btn" type="submit">Create account</button>
+        </form>
+
+        <form id="adminForm" class="form" hidden>
+          <p class="muted">Administrator access only.</p>
+          <label>Admin Email<input type="email" name="email" required /></label>
+          <label>Password<input type="password" name="password" required /></label>
+          <button class="btn dark" type="submit">Log in</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- LOGGED-IN APP (user and admin share this shell) -->
+    <section id="viewApp" hidden>
+      <nav class="tabs main-tabs" id="mainTabs"></nav>
+      <div id="panel" class="panel"></div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>
