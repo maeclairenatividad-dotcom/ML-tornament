@@ -30,7 +30,14 @@ app.use((req, res, next) => {
   next();
 });
 app.use(express.json({ limit: '100kb' }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+  express.static(path.join(__dirname, 'public'), {
+    setHeaders(res, filePath) {
+      // The service worker and manifest must refresh, or installed phones keep old shells.
+      if (/[\\/](sw\.js|manifest\.json)$/i.test(filePath)) res.setHeader('Cache-Control', 'no-cache');
+    },
+  })
+);
 app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 app.get('/qr', (req, res) => res.sendFile(path.join(__dirname, 'public', 'qr.html')));
 

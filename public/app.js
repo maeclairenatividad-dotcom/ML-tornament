@@ -14,7 +14,11 @@ async function api(url, method = 'GET', body) {
     body: body ? JSON.stringify(body) : undefined,
   });
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || 'Request failed');
+  if (!res.ok) {
+    const err = new Error(data.error || 'Request failed');
+    err.status = res.status;
+    throw err;
+  }
   return data;
 }
 
@@ -83,6 +87,40 @@ $('#logoutBtn').addEventListener('click', () => {
   localStorage.removeItem('token');
   showAuth();
 });
+
+/* ---------- install to home screen ---------- */
+const installBtn = $('#installBtn');
+const installed = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (/macintosh/i.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+let installPrompt = null;
+
+if (!installed && isIOS) installBtn.hidden = false;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  installPrompt = e;
+  if (!installed) installBtn.hidden = false;
+});
+
+installBtn.addEventListener('click', async () => {
+  if (installPrompt) {
+    installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+    installPrompt = null;
+    if (outcome === 'accepted') installBtn.hidden = true;
+    return;
+  }
+  toast(isIOS ? 'Tap the Share button, then "Add to Home Screen".' : 'Open the browser menu and choose "Install app".');
+});
+
+window.addEventListener('appinstalled', () => {
+  installBtn.hidden = true;
+  toast('App installed. Open it from your home screen.');
+});
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(() => {});
+}
 
 function showAuth() {
   $('#viewAuth').hidden = false;
@@ -477,9 +515,13 @@ const loaders = {
   try {
     me = await api('/me');
     showApp();
-  } catch {
-    localStorage.removeItem('token');
-    token = null;
+  } catch (err) {
+    if (err.status === 401) {
+      localStorage.removeItem('token');
+      token = null;
+    } else {
+      toast('Could not reach the server. Check your connection and reload.', true);
+    }
     showAuth();
   }
 })();
