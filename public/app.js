@@ -337,8 +337,10 @@ const loaders = {
             { html: `${esc(t.captain_name)} (${esc(t.captain_ign)})<br><span class="muted">${esc(t.captain_email)}<br>${esc(t.school_id)} - ${esc(t.program)}</span>` },
             { html: t.members.map((m) => `${esc(m.name)} (${esc(m.ign)})`).join('<br>') },
             { html: badge(t.status) },
-            { html: `<button class="btn small ok" data-id="${t.id}" data-status="approved">Approve</button>
-                     <button class="btn small bad" data-id="${t.id}" data-status="rejected">Reject</button>` },
+            { html: t.status === 'pending'
+                ? `<button class="btn small ok" data-id="${t.id}" data-status="approved">Approve</button>
+                   <button class="btn small bad" data-id="${t.id}" data-status="rejected">Reject</button>`
+                : '<span class="muted">-</span>' },
           ]))
         : '<p class="muted">No registrations yet.</p>'
     }`);
