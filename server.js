@@ -121,19 +121,23 @@ function deliverMail(cfg, { to, subject, text, attachments = [] }) {
 }
 
 async function sendViaBrevo(cfg, { to, subject, text, attachments = [] }) {
+  const payload = {
+    sender: { email: cfg.fromEmail, name: cfg.fromName },
+    to: [{ email: to }],
+    subject,
+    textContent: text,
+  };
+  // Brevo rejects an empty attachment array ("attachment is missing"), so only send it when there are files.
+  if (attachments.length) {
+    payload.attachment = attachments.map((a) => ({
+      name: a.filename,
+      content: Buffer.isBuffer(a.content) ? a.content.toString('base64') : String(a.content),
+    }));
+  }
   const res = await fetch('https://api.brevo.com/v3/smtp/email', {
     method: 'POST',
     headers: { 'api-key': cfg.apiKey, 'content-type': 'application/json', accept: 'application/json' },
-    body: JSON.stringify({
-      sender: { email: cfg.fromEmail, name: cfg.fromName },
-      to: [{ email: to }],
-      subject,
-      textContent: text,
-      attachment: attachments.map((a) => ({
-        name: a.filename,
-        content: Buffer.isBuffer(a.content) ? a.content.toString('base64') : String(a.content),
-      })),
-    }),
+    body: JSON.stringify(payload),
     signal: AbortSignal.timeout(20000),
   });
   if (!res.ok) {
