@@ -1,0 +1,36 @@
+# Render Blueprint: https://render.com/docs/blueprint-spec
+# Deploy with: Render Dashboard > New > Blueprint > pick this repository.
+#
+# DATABASE_URL is required on Render because the filesystem is ephemeral on
+# free instances. Create a Neon project and paste its pooled connection string
+# (it already includes ?sslmode=require).
+services:
+  - type: web
+    name: ml-tournament
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: ADMIN_NAME
+        value: Tournament Admin
+      - key: DATABASE_URL
+        sync: false
+      - key: BREVO_API_KEY
+        sync: false
+      - key: MAIL_FROM_EMAIL
+        sync: false
+      - key: MAIL_FROM_NAME
+        value: ML Tournament
+      - key: AUTO_CERTIFICATES
+        value: "true"
